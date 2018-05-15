@@ -18,31 +18,31 @@ export default class BaseInput extends React.Component{
             value : props.field,
             message :''
         }
-        // this.validate = this.validate.bind(this);
-        // this.updateValue = this.updateValue.bind(this);
+        this.validate = this.validate.bind(this);
+        this.updateValue = this.updateValue.bind(this);
     }
-    // updateValue=(newValue)=>{
-    //     this.setState({value:newValue})
-    //     const message = this.validate(newValue);
-    //     message? this.setState({message : message}):this.props.action(newValue)
+    updateValue=(newValue)=>{
+        this.setState({value:newValue})
+        const message = this.validate(newValue);
+        message? this.setState({message : message}):this.props.action(newValue)
 
-    // }
+    }
 
-    // validate=(newValue)=>{
-    //     // 
-    //     // try {
-    //     //     typecheck(checkedType, value);
-    //     //     const message = validations()
-    //     //     return message
-    //     //    
+    validate=(newValue)=>{
+        // 
+        // try {
+        //     typecheck(checkedType, value);
+        //     const message = validations()
+        //     return message
+        //    
    
-    //     // } catch (e) {
-    //     //  this.setState({message : )});
-    //     //  return extractMessage(e.message)
-    //     // } 
-    //     console.log('validate', newValue)
-    //     return '';      
-    // } 
+        // } catch (e) {
+        //  this.setState({message : )});
+        //  return extractMessage(e.message)
+        // } 
+        console.log('validate', newValue)
+        return '';      
+    } 
     render(){
         const {  field, label,action,validations, isRequired} = this.props || {};
         return(

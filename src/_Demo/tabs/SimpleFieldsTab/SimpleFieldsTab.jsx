@@ -1,6 +1,6 @@
 import React from 'react'
 import {observer} from 'mobx-react'
-import Container from '../../../components/Container/Container'
+import Wraper from '../../../components/Wraper/Wraper'
 import PersonalInformation from './containers/PersonalInformation/PersonalInformation'
 import injectWrapper from '../../../core/inject'
 
@@ -16,9 +16,9 @@ export default class SimpleFieldsTab extends React.Component{
         const UserDetails = injectWrapper(PersonalInformation,{...this.props.userDetails})
         
         return(
-            <Container >
+            <Wraper >
                 <UserDetails/>
-            </Container>
+            </Wraper>
            
         );
     }

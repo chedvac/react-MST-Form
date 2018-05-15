@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {form} from 'react-validation';
+import ReactDOM from 'react-dom'
+import  validated from '../../validations/validated'
 
-
+@validated
 class Form extends Component {
   // static propTypes = {
   //   getValues: PropTypes.func.isRequired,
@@ -20,9 +22,8 @@ constructor(props){
 }
 validate=()=>{
   var func = function(item){
-    // ReactDOM.findDOMNode(component)
-    // var myChild = React.renderComponent(item.type);
-   // myChild.validate?myChild.validate():null
+    const validateFn = item.type.validate//item.type.prototype.validate
+    validateFn?validateFn(item):null
   }
   React.Children.map(this.props.children, func)
 }

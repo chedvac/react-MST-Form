@@ -5,7 +5,7 @@ import BaseTextarea from '../../../../../Fields/BaseTextarea';
 import BaseSelect from '../../../../../Fields/BaseSelect';
 import BaseCheckbox from '../../../../../Fields/BaseCheckbox';
 import injectWrapper from '../../../../../core/inject'
-import Container from '../../../../../components/Container/Container'
+import Wraper from '../../../../../components/Wraper/Wraper'
 @observer
 export default class PersonalInformation extends React.Component{
     
@@ -61,7 +61,7 @@ export default class PersonalInformation extends React.Component{
         // });
        
         return(
-            <Container>
+            <Wraper>
                
             <div className="row">
             
@@ -83,7 +83,7 @@ export default class PersonalInformation extends React.Component{
                     <Agreement label='I agree' />
                 </div>       */}
                 </div>
-            </Container>
+            </Wraper>
            
         );
     }
