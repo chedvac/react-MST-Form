@@ -6,6 +6,7 @@ import BaseSelect from '../../../../../Fields/BaseSelect';
 import BaseCheckbox from '../../../../../Fields/BaseCheckbox';
 import injectWrapper from '../../../../../core/inject'
 import Container from '../../../../../components/Container/Container'
+import {greaterThan, differentThan} from '../../../../../validations/number'
 @observer
 export default class PersonalInformation extends React.Component{
     
@@ -18,15 +19,18 @@ export default class PersonalInformation extends React.Component{
         this.texts = {
             hebrew: {
                 firstName: ' שם פרטי',
-                lastName: ' שם משפחה'
+                lastName: ' שם משפחה',
+                age:'גיל'
             },
             english: {
                 firstName: 'first name',
-                lastName:'last name'
+                lastName:'last name',
+                age:'age'
             },
             arabic: {
                 firstName: 'first name',
-                lastName:'last name'
+                lastName:'last name',
+                age:'age'
             }
         }
         this.currentResources = this.currentResources.bind(this);
@@ -49,6 +53,10 @@ export default class PersonalInformation extends React.Component{
         const LastName = injectWrapper(BaseInput,{
             field: this.props.lastName
         });
+        const Age = injectWrapper(BaseInput,{
+            field: this.props.age,
+            validations: [greaterThan({number:7}),differentThan({number:5})]
+        });
         // const Comments = injectWrapper(BaseTextarea,{
         //     field: this.props.comments
         // }); 
@@ -70,6 +78,9 @@ export default class PersonalInformation extends React.Component{
                 </div>
                 <div className="col-md-4">
                     <LastName action={this.actions.setLastName} label={this.currentResources().lastName}/>
+                </div> 
+                <div className="col-md-4">
+                    <Age action={this.actions.setAge} label={this.currentResources().age}/>
                 </div> 
                 {/* <div className="col-md-4">
                     <Comments label='comments'  rows={3} isAutoResize={false}/>

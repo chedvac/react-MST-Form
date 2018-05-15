@@ -8,7 +8,8 @@ export default  RootStore.create({
     simpleFieldsTab:{ 
         userDetails:{
             firstName:"",
-            lastName:""
+            lastName:"",
+            age: 0
         }
     }
 })

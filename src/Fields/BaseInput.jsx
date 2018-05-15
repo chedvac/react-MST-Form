@@ -1,7 +1,8 @@
 import React from 'react'
 import {observer} from 'mobx-react'
+import {getType, types} from "mobx-state-tree"
 import LabelField from '../Elements/LabelField'
-import {updateValue} from './utils/actions'
+import {updateValue,parseValToType} from './utils/actions'
 import validationProps from './utils/validationProps'
 import {enableUniqueIds} from 'react-html-id'
 import { typecheck } from "mobx-state-tree";
@@ -21,25 +22,27 @@ export default class BaseInput extends React.Component{
         this.validate = this.validate.bind(this);
         this.updateValue = this.updateValue.bind(this);
     }
+    
     updateValue=(newValue)=>{
+        newValue=parseValToType(types.number,newValue)
         this.setState({value:newValue})
         const message = this.validate(newValue);
-        message? this.setState({message : message}):this.props.action(newValue)
-
+        this.setState({message});
+        //if( !message )
+        //  this.props.action(newValue) 
     }
 
     validate=(newValue)=>{
-        // 
-        // try {
-        //     typecheck(checkedType, value);
-        //     const message = validations()
-        //     return message
-        //    
-   
-        // } catch (e) {
-        //  this.setState({message : )});
-        //  return extractMessage(e.message)
-        // } 
+        try {
+            //newValue= parseValToType()
+            //console.log(getType(this.props.field));
+            typecheck(types.number, newValue);
+            const message = this.props.validations.map(item=>item(newValue)).find(item=> item !== "" );
+            return message
+        } catch (e) {
+            this.setState({message : "aaa"});
+            return extractMessage(e.message)
+        } 
         console.log('validate', newValue)
         return '';      
     } 
@@ -53,7 +56,8 @@ export default class BaseInput extends React.Component{
                     value={this.state.value}
                     onChange={(e)=>this.updateValue(e.target.value)}
                     className="text-field" 
-                />             
+                /> 
+                <span>{this.state.message}</span>      
                 {/* <Error error={field.message}/> */}
             </div>
         );
