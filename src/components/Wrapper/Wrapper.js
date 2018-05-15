@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 class Wrapper extends Component {
   constructor(props) {
     super(props);
+    
   }
 
   render() {
