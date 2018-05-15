@@ -13,11 +13,11 @@ export default class SimpleFieldsTab extends React.Component{
     }
   
     render(){
-        const UserDetails = injectWrapper(PersonalInformation,{...this.props.userDetails})
+        const UserDetails = injectWrapper(PersonalInformation,this.props.store.userDetails)
         
         return(
             <Container >
-                <UserDetails/>
+                <UserDetails  />
             </Container>
            
         );

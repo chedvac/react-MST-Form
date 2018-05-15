@@ -15,16 +15,19 @@ export default class BaseInput extends React.Component{
         validationProps(props);
         enableUniqueIds(this);
         this.state={
-            value : props.field,
+            value : props.field || '',
             message :''
         }
         this.validate = this.validate.bind(this);
         this.updateValue = this.updateValue.bind(this);
     }
+    // componentDidMount(){
+    //     this.setState({value:''});
+    // }
     updateValue=(newValue)=>{
         this.setState({value:newValue})
         const message = this.validate(newValue);
-        message? this.setState({message : message}):this.props.action(newValue)
+        message? this.setState({message : message}):this.props.update(newValue)
 
     }
 
@@ -51,10 +54,11 @@ export default class BaseInput extends React.Component{
                 <input
                     id={this.lastUniqueId()}
                     value={this.state.value}
-                    onChange={(e)=>this.updateValue(e.target.value)}
+                    onChange={(e)=>this.setState({value: e.target.value})}
+                    onBlur={(e)=>this.updateValue(e.target.value)}
                     className="text-field" 
                 />             
-                {/* <Error error={field.message}/> */}
+                <span error={this.state.message}></span>
             </div>
         );
     }
