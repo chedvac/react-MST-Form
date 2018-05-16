@@ -8,6 +8,9 @@ export const extractMessage = message => {
   return result ? result[1] : "";
 };
 
+export const constructMessage = message => {
+  return `${messageIdentifier} ${message} ${messageIdentifier}`;
+};
 
 export const stringExtensionFormat = function (source, params) { //eslint-disable-line complexity
   if (typeof(source) !== 'string') {

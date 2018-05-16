@@ -1,13 +1,24 @@
-import { types } from "mobx-state-tree"
+import { types } from "mobx-state-tree";
+import languagesTypes from './../../../../../types/languages';
+import numberTypes from './../../../../../types/numberTypes';
+
 const PersonalInformation = types.model({
-    firstName:  types.string,
-    lastName:  types.string,
-    age: types.number
-   
+    firstName: types.union(types.undefined,languagesTypes.hebrewName ),
+    lastName: types.union(types.undefined,languagesTypes.hebrewName),
+    age: types.union(types.undefined,numberTypes.adult ),
 }).actions(self=>({
-    setFirstName(newValue){self.firstName = newValue},
-    setLastName(newValue){self.lastName = newValue},
-    setAge(newValue){self.age = newValue}
+    updateFirstName(newValue)
+    {
+        self.firstName = newValue;
+    },
+    updateLastName(newValue)
+    {
+        self.lastName = newValue;
+    },
+    updateAge(newValue)
+    {
+        self.age = newValue;
+    }
 }))
 
 export default PersonalInformation;

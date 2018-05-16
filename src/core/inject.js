@@ -1,10 +1,13 @@
 import {inject} from 'mobx-react';
-
-const injectWrapper = function(wrappedObject, customizeStore = {}){
+const injectWrapper = function(wrappedObject, store = {}){
     return inject(
-        stores => ( Object.assign({
-            formLanguage: stores.rootStore.formlanguage
-        }, customizeStore))
+        stores => (
+            {
+                generalStore:{
+                    formLanguage: stores.rootStore.formlanguage
+                },
+                store
+        })
     )(wrappedObject);
 };
 export default injectWrapper;
