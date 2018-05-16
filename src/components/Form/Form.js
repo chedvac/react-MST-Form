@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {form} from 'react-validation';
+
 
 
 class Form extends Component {
@@ -14,23 +14,27 @@ class Form extends Component {
   // };
 constructor(props){
   super(props);
-  this.validateAll  = props.validateAll;
   this.validate = this.validate.bind(this);
+  this.validateAll = this.validateAll.bind(this);
   
 }
-validate=()=>{
-  var func = function(item){
-    // ReactDOM.findDOMNode(component)
-    // var myChild = React.renderComponent(item.type);
-   // myChild.validate?myChild.validate():null
-  }
-  React.Children.map(this.props.children, func)
+validate(children){
+  React.Children.map(children,(child) => {
+    const validateFn = child.props.validate
+    if(validateFn){
+      validateFn.call(child)
+    }else{
+      this.validate(child.props.children)
+    }
+  })
+}
+validateAll = ()=>{
+  this.validate(this.props.children)
 }
   render() {
-    const { getValues, validate, validateAll, showError, hideError, ...props } = this.props;
 
     return (
-      <form {...props} />
+      <form {...this.props} />
     )
   }
 }

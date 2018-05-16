@@ -1,32 +1,41 @@
 import React from 'react'
 import {observer} from 'mobx-react'
-import BaseInput from '../../../../../Fields/BaseInput';
-import BaseTextarea from '../../../../../Fields/BaseTextarea';
-import BaseSelect from '../../../../../Fields/BaseSelect';
-import BaseCheckbox from '../../../../../Fields/BaseCheckbox';
+import Input from '../../../../../Fields/Input';
+import Textarea from '../../../../../Fields/Textarea';
+import Select from '../../../../../Fields/Select';
+import Checkbox from '../../../../../Fields/Checkbox';
 import injectWrapper from '../../../../../core/inject'
-import Container from '../../../../../components/Container/Container'
+import control from '../../../../../Fields/hocs/control'
 @observer
-export default class PersonalInformation extends React.Component{
+ class PersonalInformation extends React.Component{
     
     constructor(props) {
         super(props);
-         this.state={
-             firstName : props.firstName,
-             lastName : props.lastName
-         }      
+        //  this.state={
+        //      firstName : props.firstName,
+        //      lastName : props.lastName
+        //  }      
         this.texts = {
             hebrew: {
                 firstName: ' שם פרטי',
-                lastName: ' שם משפחה'
+                lastName: ' שם משפחה',
+                comments: 'הערות',
+                status: 'מצב משפחתי',
+                agreement:'אני מצהיר...'
             },
             english: {
                 firstName: 'first name',
-                lastName:'last name'
+                lastName:'last name',
+                comments: 'comments',
+                status: 'status',
+                agreement:'I Agree...'
             },
             arabic: {
                 firstName: 'first name',
-                lastName:'last name'
+                lastName:'last name',
+                comments: 'comments',
+                status: 'status',
+                agreement:'I Agree...'
             }
         }
         this.currentResources = this.currentResources.bind(this);
@@ -37,54 +46,37 @@ export default class PersonalInformation extends React.Component{
         return this.texts['hebrew'/*this.props.formLanguage.name*/];
     };
     actions={...this.props.actions}
-        
    
-    validate(){
-
-    }
     render(){
-        const FirstName = injectWrapper(BaseInput,{
-            field: this.props.firstName
-        });
-        const LastName = injectWrapper(BaseInput,{
-            field: this.props.lastName
-        });
-        // const Comments = injectWrapper(BaseTextarea,{
-        //     field: this.props.comments
-        // }); 
-       
-        // const Status = injectWrapper(BaseSelect,{
-        //     field: this.props.status
-        // }); 
-        // const Agreement = injectWrapper(BaseCheckbox,{
-        //     field: this.props.agreement
-        // });
-       
+      
         return(
-            <Container>
-               
-            <div className="row">
-            
-                <div className="col-md-4">
-                    <FirstName action={this.actions.setFirstName} label={this.currentResources().firstName}/>
+            <div> 
+                <div className="row">
+                
+                    <div className="col-md-4">
+                        <Input ref='firsName' field= {this.props.firstName}  update={this.actions.setFirstName} label={this.currentResources().firstName}/>
+                    </div>
+                    <div className="col-md-4">
+                        <Input ref='lastName' field= {this.props.lastName} update={this.actions.setLastName} label={this.currentResources().lastName}/>
+                    </div> 
+                    <div className="col-md-4">
+                        <Textarea field= {this.props.comments} update={this.actions.updateComments} label={this.currentResources().comments} rows={4} isAutoResize={false}/>
+                    </div> 
+                    
+                    <div className="col-md-4">
+                        <Select field= {this.props.status} label={this.currentResources().status} update={this.actions.setStatus} options={this.statusOptions} />
+                    </div>  
+                    
                 </div>
-                <div className="col-md-4">
-                    <LastName action={this.actions.setLastName} label={this.currentResources().lastName}/>
-                </div> 
-                {/* <div className="col-md-4">
-                    <Comments label='comments'  rows={3} isAutoResize={false}/>
-                </div> 
-                 
-                <div className="col-md-4">
-                    <Status label='status' options={this.statusOptions} />
-                </div>  
-                 
-                 <div className="col-md-4">
-                    <Agreement label='I agree' />
-                </div>       */}
+                <div className="row">
+                    <div className="col-md-4">
+                        <Checkbox label={this.currentResources().agreement} update={this.actions.setAgreement} field= {this.props.agreement}/>
+                    </div>     
                 </div>
-            </Container>
+            </div>
            
         );
     }
 }
+export default PersonalInformation
+//export default control(PersonalInformation)
