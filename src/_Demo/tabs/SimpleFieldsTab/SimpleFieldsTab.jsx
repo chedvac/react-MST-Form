@@ -1,11 +1,10 @@
 import React from 'react'
 import {observer} from 'mobx-react'
-import Container from '../../../components/Container/Container'
 import PersonalInformation from './containers/PersonalInformation/PersonalInformation'
 import injectWrapper from '../../../core/inject'
-
+import control from '../../../Fields/hocs/control'
 @observer
-export default class SimpleFieldsTab extends React.Component{
+ class SimpleFieldsTab extends React.Component{
     
     constructor(props) {
         super(props);
@@ -14,12 +13,9 @@ export default class SimpleFieldsTab extends React.Component{
   
     render(){
         const UserDetails = injectWrapper(PersonalInformation,this.props.store.userDetails)
-        
         return(
-            <Container >
-                <UserDetails  />
-            </Container>
-           
+            <UserDetails  />
         );
     }
 }
+export default SimpleFieldsTab

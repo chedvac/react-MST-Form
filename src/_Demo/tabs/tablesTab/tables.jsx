@@ -1,8 +1,7 @@
 import React from 'react'
 import {observer} from 'mobx-react'
-import BaseInput from '../../../Fields/BaseInput';
+import Input from '../../../Fields/Input';
 import injectWrapper from '../../../core/inject';
-import Container from '../../../components/Container/Container';
 @observer
 export default class Tables extends React.Component{
     
@@ -48,16 +47,16 @@ export default class Tables extends React.Component{
         // });
        
         return(
-            <Container>
+           
                
             <div className="row">
             
                 <div className="col-md-4">
-                    <BaseInput field={this.props.store.email} update={this.props.store.updateEmail}
+                    <Input field={this.props.store.email} update={this.props.store.updateEmail}
                         label={this.currentResources().email}/>
                 </div>
                 <div className="col-md-4">
-                    <BaseInput  field={this.props.store.houseNumber} update={this.props.store.updateHouseNumber}
+                    <Input  field={this.props.store.houseNumber} update={this.props.store.updateHouseNumber}
                          label={this.currentResources().houseNumber}/>
                 </div> 
                 {/* <div className="col-md-4">
@@ -72,7 +71,7 @@ export default class Tables extends React.Component{
                     <Agreement label='I agree' />
                 </div>       */}
                 </div>
-            </Container>
+          
            
         );
     }

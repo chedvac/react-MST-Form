@@ -1,17 +1,14 @@
 import React from 'react'
 import {observer} from 'mobx-react'
-import LabelField from '../Elements/LabelField'
-import {updateValue} from './utils/actions'
-import validationProps from './utils/validationProps'
-
+import control from './hocs/control'
+import {renderLabel} from './utils/renderLabel'
+import {renderError} from './utils/renderError'
 
 @observer
-export default class BaseSelect extends React.Component{
+class Select extends React.Component{
     
     constructor(props) {
         super(props);
-        validationProps(props);
-        
         this.texts = {
             english: {
                 optionCaption: 'Choose'
@@ -32,27 +29,23 @@ export default class BaseSelect extends React.Component{
           );
     }
     currentResources = function(){
-        return this.texts['english'/*this.props.formLanguage.name*/];
+        return this.texts['hebrew'/*this.props.formLanguage.name*/];
     };
    
     render(){
-        const {  field, label, options=[] } = this.props || {};
-        return(
+        const { options=[] } = this.props || {};
+        return( 
             <div>
-                <LabelField label={label} />
-                <select 
-                    onChange={(e)=>updateValue(e.target.value,field)}
-                   
-                    value={field.value}
-                    className="select-field" 
-                >   
+                {renderLabel(this.props)}
+                <select className="select-field" {...this.props}>   
                     {options.map(option =>
-                     <option key={option.key} value={option.key}>{option.value}</option>)
+                        <option key={option.key} value={option.key}>{option.value}</option>)
                     }
-                 </select>          
-                {/* <Error error={field.message}/> */}
+                </select>    
+                {renderError(this.props.message)}      
             </div>
         );
     }
   
 }
+export default control(Select)

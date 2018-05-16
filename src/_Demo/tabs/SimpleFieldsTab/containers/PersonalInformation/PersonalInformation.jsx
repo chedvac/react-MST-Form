@@ -1,33 +1,46 @@
 import React from 'react'
 import {observer} from 'mobx-react'
 import {getChildType} from 'mobx-state-tree'
-import BaseInput from '../../../../../Fields/BaseInput';
-import Container from '../../../../../components/Container/Container'
 import {lessThan, differentThan} from '../../../../../validations/number'
+import Input from '../../../../../Fields/Input';
+import Textarea from '../../../../../Fields/Textarea';
+import Select from '../../../../../Fields/Select';
+import Checkbox from '../../../../../Fields/Checkbox';
+import injectWrapper from '../../../../../core/inject'
+import control from '../../../../../Fields/hocs/control'
 @observer
-export default class PersonalInformation extends React.Component{
+ class PersonalInformation extends React.Component{
     
     constructor(props) {
         super(props);
-         this.state={
-             firstName : '',
-             lastName : ''
-         }      
+
         this.texts = {
             hebrew: {
                 firstName: ' שם פרטי',
                 lastName: ' שם משפחה',
-                age:'גיל'
+                age:'גיל',
+                comments: 'הערות',
+                status: 'מצב משפחתי',
+                agreement:'אני מצהיר...'
+
             },
             english: {
                 firstName: 'first name',
                 lastName:'last name',
-                age:'age'
+                age:'age',
+                comments: 'comments',
+                status: 'status',
+                agreement:'I Agree...'
+
             },
             arabic: {
                 firstName: 'first name',
                 lastName:'last name',
-                age:'age'
+                age:'age',
+                comments: 'comments',
+                status: 'status',
+                agreement:'I Agree...'
+
             }
         }
         this.currentResources = this.currentResources.bind(this);
@@ -40,45 +53,48 @@ export default class PersonalInformation extends React.Component{
         }    
     }
     currentResources = function(){
+
         return this.texts[this.props.generalStore.formLanguage.name];
     };        
    
-    validate(){
+  
 
-    }
-    render(){       
+   
+    render(){
+      
         return(
-            <Container>
-               
-            <div className="row">
-            
+            <div> 
+                <div className="row">
                 <div className="col-md-4">
-                    <BaseInput field={this.props.store.firstName} update={this.props.store.updateFirstName}
+                    <Input field={this.props.store.firstName} update={this.props.store.updateFirstName}
                         label={this.currentResources().firstName} type={getChildType(this.props.store, "firstName")}/>
                 </div>
                 <div className="col-md-4">
-                    <BaseInput field={this.props.store.lastName} update={this.props.store.updateLastName}
+                    <Input field={this.props.store.lastName} update={this.props.store.updateLastName}
                         label={this.currentResources().lastName} type={getChildType(this.props.store, "lastName")}/>
                 </div> 
                 <div className="col-md-4">
-                    <BaseInput field={this.props.store.age} update={this.props.store.updateAge}
+                    <Input field={this.props.store.age} update={this.props.store.updateAge}
                         label={this.currentResources().age} type={getChildType(this.props.store, "age")}
                         validations={this.validations.age}/>
                 </div> 
-                {/* <div className="col-md-4">
-                    <Comments label='comments'  rows={3} isAutoResize={false}/>
-                </div> 
-                 
                 <div className="col-md-4">
-                    <Status label='status' options={this.statusOptions} />
+                    <Textarea field= {this.props.store.comments} update={this.props.store.updateComments} label={this.currentResources().comments} rows={4} isAutoResize={false}/>
+                </div> 
+                
+                <div className="col-md-4">
+                    <Select field= {this.props.store.status} label={this.currentResources().status} update={this.props.store.updateStatus} options={this.statusOptions} />
                 </div>  
-                 
-                 <div className="col-md-4">
-                    <Agreement label='I agree' />
-                </div>       */}
+                    
                 </div>
-            </Container>
+                <div className="row">
+                    <div className="col-md-4">
+                        <Checkbox field= {this.props.store.agreement} label={this.currentResources().agreement} update={this.props.store.updateAgreement} />
+                    </div>     
+                </div>
+            </div>
            
         );
     }
 }
+export default PersonalInformation
