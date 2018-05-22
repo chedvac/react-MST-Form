@@ -1,6 +1,17 @@
 import commonTexts from'./basicValidations'
 
 export default {
+
+    lessThan: {
+        hebrew:'עליך להזין מספר קטן מ {0}',
+        arabic: 'أدخل رقما أقل من {0}',
+        english: 'Please enter a value less than {0}'
+    },
+    greaterThan:{
+        hebrew:'עליך להזין מספר גדול מ {0}',
+        arabic: 'أدخل رقما أكبر من {0}',
+        english: 'Please enter a value greater than {0}',
+    },
     hebrew: {
         integer: commonTexts.hebrew.integer,
         signedNumber: commonTexts.hebrew.number,

@@ -1,5 +1,5 @@
 import React from 'react';
-import validationProps from '../utils/validationProps'
+import {validationProps,validationValue} from '../utils/validationProps'
 import {enableUniqueIds} from 'react-html-id'
 import { typecheck } from "mobx-state-tree";
 import { extractMessage } from "../../validations/utils";
@@ -15,37 +15,30 @@ export default function control (WrappedComponent) {
         enableUniqueIds(this);
         this.state={
             value : props.field,
-            message :''
+            message : ''
         }
-     
         this.updateStore = this.updateStore.bind(this);
-        this.validate = this.validate.bind(this);
     }
-    updateStore=(newValue)=>{
-        const message = this.validate(newValue);
-        this.setState({message});
-        if( !message )
-          this.props.update(newValue);
 
-    }
-    validate=(newValue)=>{
+    updateStore=(newValue)=>{
         try {
             typecheck(this.props.type, newValue);
-            const {validations} = this.props
-            let message='';
-            for (var item in validations) {
-                if(!validations[item].validator(newValue)){
-                    message=validations[item].message;                
-                    break;
-                }
-              }
-            return message
+            this.props.update(newValue);
         } catch (e) {
-            return extractMessage(e.message)
+            this.props.update(undefined);
+            const message= extractMessage(e.message);
+            this.setState({message});
         }
-        return '';    
     }
-       
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.field!== undefined){
+            const message = validationValue(prevState.value,nextProps.validations);
+            return {message};
+        }
+        return null;
+    }
+     
     render() {
         return (
             <WrappedComponent {...this.props} {...this.state}

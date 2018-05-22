@@ -20,7 +20,7 @@ const number = types.custom({
       return validateNumber(value);
     },
     getValidationMessage(value) {
-      return constructMessage(messages.number.hebrew.number);
+      return constructMessage(messages.number.hebrew.number);//todo lan from?
     }
   });
  
@@ -44,6 +44,24 @@ const number = types.custom({
     }
   });
 
+  const required = types.custom({
+    name: "required",
+    fromSnapshot(value) {
+      return value;
+    },
+    toSnapshot(value) {
+      return value;
+    },
+    isTargetType(value) {
+      return true;
+    },
+    getValidationMessage(value) {
+      return constructMessage("חובה להזין ערך בשדה זה");
+    }
+  });
+
   export default {
-    number
+    number,
+    boolean,
+    required
   }

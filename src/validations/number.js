@@ -16,7 +16,7 @@ export const greaterThan =(params)=> {
             }
             return val > number;
         },
-        message: message || stringExtensionFormat(messages.number.hebrew.greaterThan,number)
+        message: message || stringExtensionFormat(messages.number.greaterThan.hebrew,number)
     }
 }
 
@@ -34,24 +34,6 @@ export const lessThan = params => {
             }
             return val < number;
         },
-        message: message || stringExtensionFormat(messages.number.hebrew.lessThan,number)
-    }
-};
-
-export const differentThan =(params)=> {
-    let {number, message} = params;
-    return{
-        validator: (val)=>{
-            if (!number ||isNaN(number.toString())) {
-                return true;
-            }
-            number = parseFloat(number);
-            val = parseFloat(val);
-            if (isNaN(val)) {
-                return true;
-            }
-            return val !== number;
-        },
-        message: message || stringExtensionFormat("nust to different Than {0}",number)
+        message: message || stringExtensionFormat(messages.number.lessThan.hebrew,number)
     }
 };

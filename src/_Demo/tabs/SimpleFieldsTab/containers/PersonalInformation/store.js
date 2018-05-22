@@ -8,33 +8,37 @@ const PersonalInformation = types.model({
     lastName: types.union(types.undefined,languagesTypes.hebrewName),
     comments: types.union(types.undefined,types.string ),
     status: types.union(types.undefined,types.string),
-    //agreement: types.union(types.undefined,primitiveTypes.boolean),
-    agreement: types.union(types.undefined,types.string),
-    age: types.union(types.undefined,numberTypes.adult ),
+    agreement: types.union(types.undefined,primitiveTypes.boolean),
+    age: types.union(types.undefined,numberTypes.adult),
+    fatherAge: types.union(types.undefined,numberTypes.adult)
 }).actions(self=>({
-    updateFirstName(newValue)
+    set_firstName(newValue)
     {
         self.firstName = newValue;
     },
-    updateLastName(newValue)
+    set_lastName(newValue)
     {
         self.lastName = newValue;
     },
-    updateComments(newValue)
+    set_comments(newValue)
     {
         self.comments = newValue;
     },
-    updateStatus(newValue)
+    set_status(newValue)
     {
         self.status = newValue;
     },
-    updateAgreement(newValue)
+    set_agreement(newValue)
     {
         self.agreement = newValue;
     },
-    updateAge(newValue)
+    set_age(newValue)
     {
         self.age = newValue;
+    },
+    set_fatherAge(newValue)
+    {
+        self.fatherAge = newValue;
     }
 }))
 

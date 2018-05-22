@@ -27,14 +27,21 @@ export const stringExtensionFormat = function (source, params) { //eslint-disabl
   if (arguments.length > 2 && params.constructor !== Array) {
       params = Array.from(arguments).slice(1);
   }
-  if (params.constructor !== Array) {
-      params = [params];
+  if (params !== undefined) {
+    if (params.constructor !== Array) {
+        params = [params];
+    }
+    params.forEach((n,i) => {
+      source = source.replace(new RegExp('\\{' + i + '\\}', 'g'), function () {
+            return n;
+        });
+    });
   }
-  params.forEach((n,i) => {
-    source = source.replace(new RegExp('\\{' + i + '\\}', 'g'), function () {
-          return n;
-      });
-  });
-
   return source;
 };
+
+export const objectStringExtensionFormat= (object,params)=>{
+  for (var source in object) {
+    object[source]=stringExtensionFormat(object[source],params)
+    }
+}
